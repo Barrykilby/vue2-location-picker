@@ -1,9 +1,9 @@
 {
-  "name": "vue-location-picker",
-  "version": "1.0.1",
-  "author": "Pantelis Peslis <pespantelis@gmail.com>",
+  "name": "vue2-location-picker",
+  "version": "1.0.0",
+  "author": "Becchetti Luca <info@brokenice.it>",
   "license": "MIT",
-  "description": "Location Picker component for Vue.js",
+  "description": "Location Picker component for Vue 2",
   "keywords": [
     "vue",
     "location",
@@ -13,14 +13,10 @@
   "main": "src/LocationPicker.vue",
   "repository": {
     "type": "git",
-    "url": "https://github.com/pespantelis/vue-location-picker.git"
+    "url": "https://github.com/lucabecchetti/vue2-location-picker.git"
   },
-  "bugs": "https://github.com/pespantelis/vue-location-picker/issues",
-  "homepage": "http://pespantelis.github.io/vue-location-picker/",
-  "scripts": {
-    "dev": "webpack-dev-server --inline --hot",
-    "build": "cross-env NODE_ENV=production webpack --progress --hide-modules"
-  },
+  "bugs": "https://github.com/lucabecchetti/vue2-location-picker.git/issues",
+  "homepage": "https://github.com/lucabecchetti/vue2-location-picker/",
   "dependencies": {
     "vue": "^1.0.0",
     "babel-runtime": "^5.8.0"
