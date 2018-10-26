@@ -4,13 +4,13 @@
 
 Available through npm as `vue-location-picker`.
 ```
-npm install --save vue-location-picker
+npm install --save vue2-google-location-picker
 ```
 
 ## Usage
 ```js
-import LocationPickerInit from 'vue-location-picker/src/init'
-import LocationPicker from 'vue-location-picker'
+import LocationPickerInit from 'vue2-google-location-picker/src/init'
+import LocationPicker from 'vue2-google-location-picker'
 
 new Vue({
   el: 'body',
