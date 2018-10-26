@@ -1,6 +1,6 @@
 
 module.exports = (app, config, options) => {
-  
+
   app.$eventHub = new Vue(); // Global event bus
 
     if (!config.key) {
@@ -13,6 +13,7 @@ module.exports = (app, config, options) => {
 
   // set the callback function
   global.initLocationPicker = () => {
+      console.log('location picker callback');
       app.$eventHub.$emit('location-picker-init', options || {})
   }
 
