@@ -1,8 +1,6 @@
 
 module.exports = (app, config, options) => {
-
-  console.log(app);
-
+  
   app.$eventHub = new Vue(); // Global event bus
 
     if (!config.key) {

@@ -32,6 +32,9 @@
 
       mounted () {
           this.$parent.$eventHub.$on('location-picker-init', (options) => {
+
+              console.log('location picker map mounted');
+
               this.geocoder = new google.maps.Geocoder()
 
               this.map = new google.maps.Map(this.$refs.map, Object.assign({
