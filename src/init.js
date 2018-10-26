@@ -1,5 +1,11 @@
+
 module.exports = (app, config, options) => {
-  if (!config.key) {
+
+  console.log(app);
+
+  app.$eventHub = new Vue(); // Global event bus
+
+    if (!config.key) {
     console.error('[Vue Location Picker warn]: You should give a Google Maps API key')
     return
   }
@@ -9,7 +15,7 @@ module.exports = (app, config, options) => {
 
   // set the callback function
   global.initLocationPicker = () => {
-    app.$broadcast('location-picker-init', options || {})
+      app.$eventHub.$emit('location-picker-init', options || {})
   }
 
   // construct the url

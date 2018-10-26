@@ -1,67 +1,67 @@
 <template>
   <div class="LocationPicker">
-    <div class="LocationPicker__map" v-el:map></div>
-    <input type="text" class="LocationPicker__autocomplete" v-el:input/>
-    <info-window class="LocationPicker__info-window" v-ref:info></info-window>
+    <div class="LocationPicker__map" ref="map"></div>
+    <input type="text" class="LocationPicker__autocomplete" ref="input"/>
+    <info-window class="LocationPicker__info-window" ref="info"></info-window>
   </div>
 </template>
 
 
 <script>
   import InfoWindow from './InfoWindow.vue'
-
   export default {
-    props: {
-      place: {
-        type: Object,
-        twoWay: true
-      }
-    },
-
+    props: ['onPlaceChange'],
     data () {
       return {
         geocoder: null,
         map: null,
         marker: null,
         infoWindow: null,
-        autocomplete: null
+        autocomplete: null,
+          place: {}
       }
     },
-
+    watch:{
+        place(){
+            if(this.onPlaceChange !== undefined){
+                this.onPlaceChange(this.place);
+            }
+        }
+    },
     components: { InfoWindow },
 
-    events: {
-      'location-picker-init' (options) {
-        this.geocoder = new google.maps.Geocoder()
+      mounted () {
+          this.$parent.$eventHub.$on('location-picker-init', (options) => {
+              this.geocoder = new google.maps.Geocoder()
 
-        this.map = new google.maps.Map(this.$els.map, Object.assign({
-          center: { lat: 0, lng: 0 },
-          zoom: 3,
-          disableDefaultUI: true
-        }, options.map))
+              this.map = new google.maps.Map(this.$refs.map, Object.assign({
+                  center: { lat: 0, lng: 0 },
+                  zoom: 3,
+                  disableDefaultUI: true
+              }, options.map))
 
-        this.marker = new google.maps.Marker(Object.assign({
-          map: this.map,
-          position: this.map.getCenter(),
-          draggable: true
-        }, options.marker))
+              this.marker = new google.maps.Marker(Object.assign({
+                  map: this.map,
+                  position: this.map.getCenter(),
+                  draggable: true
+              }, options.marker))
 
-        this.infoWindow = new google.maps.InfoWindow(Object.assign({
-          content: this.$refs.info.$el
-        }, options.infoWindow))
+              this.infoWindow = new google.maps.InfoWindow(Object.assign({
+                  content: this.$refs.info.$el
+              }, options.infoWindow))
 
-        this.autocomplete = new google.maps.places.Autocomplete(this.$els.input, Object.assign({
-          types: ['geocode']
-        }, options.autocomplete))
-        this.map.controls[google.maps.ControlPosition.TOP_LEFT].push(this.$els.input)
+              this.autocomplete = new google.maps.places.Autocomplete(this.$refs.input, Object.assign({
+                  types: ['geocode']
+              }, options.autocomplete))
+              this.map.controls[google.maps.ControlPosition.TOP_LEFT].push(this.$refs.input)
 
-        // events
-        google.maps.event.addListenerOnce(this.map, 'idle', this.openInfoWindow)
-        this.marker.addListener('dragstart', this.closeInfoWindow)
-        this.marker.addListener('dragend', this.geocodeLocation)
-        this.autocomplete.addListener('place_changed', this.moveMarker)
-      }
-    },
+              // events
+              google.maps.event.addListenerOnce(this.map, 'idle', this.openInfoWindow)
+              this.marker.addListener('dragstart', this.closeInfoWindow)
+              this.marker.addListener('dragend', this.geocodeLocation)
+              this.autocomplete.addListener('place_changed', this.moveMarker)
+          })
+      },
 
     methods: {
       openInfoWindow () {
@@ -74,7 +74,7 @@
 
       geocodeLocation (e) {
         this.map.panTo(e.latLng)
-        this.$els.input.value = ''
+        this.$refs.input.value = ''
 
         this.geocoder.geocode({'latLng': e.latLng}, (response) => {
           if (response && response.length > 0) {
@@ -109,6 +109,7 @@
   .LocationPicker,
   .LocationPicker__map {
     height: 100%;
+    min-height: 500px;
   }
 
   .LocationPicker__autocomplete {

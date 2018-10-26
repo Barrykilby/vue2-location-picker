@@ -10,8 +10,8 @@
   export default {
     data () {
       return {
-        title: 'Instructions',
-        body: ['Click and drag this marker to pick your location.']
+        title: 'Istruzioni',
+        body: ['Cerca la località con la casella qui sopra, poi trascina il puntatore nel punto in cui si trova la tua struttura']
       }
     },
 
