@@ -1,6 +1,6 @@
 {
   "name": "vue2-google-location-picker",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "author": "Becchetti Luca <info@brokenice.it>",
   "license": "MIT",
   "description": "Location Picker component for Vue 2",
